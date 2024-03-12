@@ -7,7 +7,7 @@ jobs:
     name: A job to run a WAS scan
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Running tests
         run: |
           echo "Installing app dependencies"
@@ -27,7 +27,7 @@ jobs:
         env:
           ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      
+
       - name: Gets the number of low severity findings
         run: echo "Number of low severity findings is ${{ steps.was.outputs.number_of_low_severity_findings }}"
       - name: Gets the number of medium severity findings
