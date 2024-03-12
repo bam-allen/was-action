@@ -14,7 +14,7 @@ def get_configuration_id(folder_name, scan_name, headers):
     """
     Returns the scan config identifier
     """
-    url = "https://cloud.tenable.com/was/v2/configs/search"
+    url = "https://fedcloud.tenable.com/was/v2/configs/search"
 
     payload = {
         "AND": [
@@ -45,7 +45,7 @@ def get_configuration_id(folder_name, scan_name, headers):
         if config["name"] == scan_name:
             config_id = config["config_id"]
             break
-    
+
     if not config_id:
         logger.info(f"data received: {response_dict}")
         raise ValueError("Scan configuration not found")
@@ -56,7 +56,7 @@ def stop_scan(scan_id, headers):
     """
     Stops an existing scan
     """
-    url = f"https://cloud.tenable.com/was/v2/scans/{scan_id}"
+    url = f"https://fedcloud.tenable.com/was/v2/scans/{scan_id}"
 
     payload = {"requested_action": "stop"}
 
@@ -72,7 +72,7 @@ def launch_scan(config_id, headers):
     """
     Will launch an WAS scan with the given config id.
     """
-    url = f"https://cloud.tenable.com/was/v2/configs/{config_id}/scans"
+    url = f"https://fedcloud.tenable.com/was/v2/configs/{config_id}/scans"
     response = requests.request("POST", url, headers=headers)
 
     response_dict = json.loads(response.text)
@@ -96,10 +96,10 @@ def launch_scan(config_id, headers):
 def get_report(scan_id, headers):
     """
     Will get all vulnerabilities for the scan
-    
+
     """
 
-    url = f"https://cloud.tenable.com/was/v2/scans/{scan_id}/report"
+    url = f"https://fedcloud.tenable.com/was/v2/scans/{scan_id}/report"
     headers["Content-Type"] = "application/json"
 
     response = requests.request("GET", url, headers=headers)
@@ -138,7 +138,7 @@ def get_report(scan_id, headers):
     }
 
 def check_threshold(low_vulns, low_vulns_threshold, medium_vulns, medium_vulns_threshold, high_vulns, high_vulns_threshold, critical_vulns, critical_vulns_threshold):
-       
+
     if low_vulns > low_vulns_threshold:
         raise ValueError("Low severity vulnerabilities found have exceeded threshold")
 
