@@ -65,7 +65,7 @@ They are provided the following way:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
 ```
 
-! It is important that these keys should not be shared publicly.
+> ! It is important that these keys should not be shared publicly.
 
 ### Using outputs
 
